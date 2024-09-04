@@ -1,0 +1,9 @@
+<h1>Dashboard</h1>
+<a href="/posts/new">Create New Post</a>
+{{#each blogs}}
+  <article>
+    <h2><a href="/posts/{{this.id}}">{{this.title}}</a></h2>
+    <a href="/posts/{{this.id}}/edit">Edit</a>
+    <button data-id="{{this.id}}" class="delete-post">Delete</button>
+  </article>
+{{/each}}
