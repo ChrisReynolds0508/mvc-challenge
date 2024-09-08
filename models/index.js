@@ -22,7 +22,7 @@
 const { Sequelize } = require('sequelize');
 require('dotenv').config();
 
-const User = require('./user');
+const User = require('./User');
 const Blog = require('./Blog'); // Adjust this path if necessary
 
 User.hasMany(Blog, {
