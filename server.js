@@ -1,12 +1,12 @@
 const express = require('express');
 const session = require('express-session');
-const { SequelizeStore } = require('connect-session-sequelize');
+const SequelizeStore  = require('connect-session-sequelize')(session.Store);
 const exphbs = require('express-handlebars');
 const path = require('path');
 require('dotenv').config();
 
 const { sequelize, User, Blog } = require('./models');
-const apiRoutes = require('./controllers/api/blogRoutes');
+const blogRoutes = require('./controllers/api/blogRoutes');
 const userRoutes = require('./controllers/api/userRoutes');
 
 const app = express();
@@ -26,11 +26,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
-app.set('view engine', 'handlebars');
+// app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
+// app.set('view engine', 'handlebars');
 
-app.use('/', apiRoutes);
-app.use('/users', userRoutes);
+app.use('/api/blogs', blogRoutes);
+app.use('/api/users', userRoutes);
 
 sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => {
