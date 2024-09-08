@@ -32,6 +32,8 @@ app.set('view engine', 'handlebars');
 app.use('/', apiRoutes);
 app.use('/users', userRoutes);
 
-app.listen(PORT, () => {
+sequelize.sync({ force: false }).then(() => {
+  app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
+});
 });
